@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9b5584f058e1c48bf805988c588513, type: 3}
+  m_Name: WeaponM4
+  m_EditorClassIdentifier: 
+  weaponName: M4
+  cost: 25
+  weaponSprite: {fileID: 21300000, guid: 4536122e571710f429cb5d7006560d10, type: 3}
+  rechargeTime: 1.5
+  bulletDamage: 50
+  bulletSpeed: 25
+  amountBulletsInMagazine: 30
+  bulletDelay: 0.3
+  bullet: {fileID: 3337870766271217028, guid: 09ec78dc754635b42b7c191677922c66, type: 3}
