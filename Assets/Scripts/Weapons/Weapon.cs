@@ -11,8 +11,9 @@ public class Weapon : MonoBehaviour
     private float timerRecharge;
     private int amountBulletsInMagazine;
 
-    public int AmountBulletsInMagazine => amountBulletsInMagazine;
     public WeaponParameters Parameters => parameters;
+    public int AmountBulletsInMagazine => amountBulletsInMagazine;
+    public int AmountBulletsInMagazineStandart => parameters.AmountBulletsInMagazine;
 
     private void Start()
     {

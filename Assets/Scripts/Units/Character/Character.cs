@@ -37,7 +37,7 @@ public class Character : Units
     private void FixedUpdate()
     {
         HPText.GetComponent<Text>().text = $"{HealthPoints}";
-        bulletsText.GetComponent<Text>().text = $"{weaponAttack.AmountBulletsInMagazine}";
+        bulletsText.GetComponent<Text>().text = $"{weaponAttack.AmountBulletsInMagazine + "/" + weaponAttack.AmountBulletsInMagazineStandart}";
         RotateWeapons();
         RotateBody();
     }
@@ -46,7 +46,6 @@ public class Character : Units
     {
         IsGrounded();
         Run();
-
         if (Input.GetButtonDown("Jump") && IsGrounded())
             Jump();
 
@@ -105,8 +104,8 @@ public class Character : Units
 
         gameObject.GetComponentInChildren<Animation>().IsRun = horizontal != 0;
         Vector2 movement = new Vector3(horizontal * parameters.Speed * Time.fixedDeltaTime, 0.0f);
-        legs[0].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal <= 0);
-        legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal <= 0);
+        legs[0].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && offset > 0);
+        legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && offset > 0);
         rigidBody.AddForce(movement); // Создает толчок в заданное направление
     }
 
@@ -148,7 +147,7 @@ public class Character : Units
         particle.Play();
         Destroy(particle.gameObject, particle.startLifetime);
 
-        if (HealthPoints <= 0)
+        if (HealthPoints - damage <= 0)
         {
             FindObjectOfType<EndGame>().LossCanvas(); // находит объект с EndGame и вызывает LossCanvas при проигрыше
             return 0;
