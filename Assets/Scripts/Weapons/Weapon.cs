@@ -24,6 +24,10 @@ public class Weapon : MonoBehaviour
     {
         if(timerRecharge > 0)
             timerRecharge -= Time.deltaTime;
+        else if (amountBulletsInMagazine == 0)
+        {
+            amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+        }
     }
 
     // Функция стрельбы оружия
@@ -44,13 +48,13 @@ public class Weapon : MonoBehaviour
     }
 
     // Отнять пулю из магазина, в случае, если магазин пуст, то начать перезарядку
-    public int TakeAwayBullet(int quantity)
+    public void TakeAwayBullet(int quantity)
     {
-        if (amountBulletsInMagazine - quantity < 0)
+        amountBulletsInMagazine -= quantity;
+        if (amountBulletsInMagazine <= 0)
         {
             timerRecharge = parameters.RechargeTime;
-            amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+            return;
         }
-        return amountBulletsInMagazine -= quantity;
     }
 }

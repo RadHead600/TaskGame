@@ -10,11 +10,6 @@ public abstract class Enemy : Units
 
     public EnemyParameters Parameters => parameters;
 
-    public virtual void Start()
-    {
-        HealthPoints = Parameters.HealthPoints;
-    }
-
     public override int ReceiveDamage(int damage)
     {
         // Отвечает за отталкивание в при попадании

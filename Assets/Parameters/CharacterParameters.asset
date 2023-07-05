@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45fe366f8617394f9b1b657b141bce9, type: 3}
   m_Name: CharacterParameters
   m_EditorClassIdentifier: 
-  speed: 300
+  speed: 200
   jump: 15
-  healthPoints: 1000
+  healthPoints: 100
   blockStay:
     serializedVersion: 2
     m_Bits: 262400

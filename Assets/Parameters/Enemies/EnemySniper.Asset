@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemySniper
   m_EditorClassIdentifier: 
   weapon: {fileID: 4474499230003192428, guid: a29d3a6b1836a1c469b67705811c1dcb, type: 3}
-  healthPoints: 150
+  healthPoints: 25

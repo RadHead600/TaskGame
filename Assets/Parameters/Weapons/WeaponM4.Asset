@@ -16,7 +16,7 @@ MonoBehaviour:
   cost: 25
   weaponSprite: {fileID: 21300000, guid: 4536122e571710f429cb5d7006560d10, type: 3}
   rechargeTime: 1.5
-  bulletDamage: 50
+  bulletDamage: 10
   bulletSpeed: 25
   amountBulletsInMagazine: 30
   bulletDelay: 0.3

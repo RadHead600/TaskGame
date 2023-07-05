@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemySoldierPistol
   m_EditorClassIdentifier: 
   weapon: {fileID: 3450207488066569553, guid: 6d173d121fd4d84419b5d8f7e832abf7, type: 3}
-  healthPoints: 200
+  healthPoints: 20

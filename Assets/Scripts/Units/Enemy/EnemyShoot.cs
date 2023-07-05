@@ -11,11 +11,11 @@ public class EnemyShoot : Enemy
     private Vector3 difference;
     private Weapon weapon;
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-        if(player == null)
+        if (player == null)
             player = FindObjectOfType<Character>().gameObject;
+        HealthPoints = Parameters.HealthPoints;
         weapon = Instantiate(Parameters.Weapon);
         weapon.transform.SetParent(hand);
         weapon.transform.localPosition = Vector3.zero;
