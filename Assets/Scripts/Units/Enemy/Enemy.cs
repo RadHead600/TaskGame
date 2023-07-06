@@ -32,7 +32,7 @@ public abstract class Enemy : Units
     public override void Die()
     {
         SaveParameters.numberKilled[SaveParameters.levelActive] += 1;
-        Instantiate(dropParameters.Coin, transform.position, dropParameters.Coin.transform.rotation);
+        Instantiate(dropParameters.Coin, transform.position + new Vector3(0, 1, 0), dropParameters.Coin.transform.rotation); // создает монету на месте смерти
         Destroy(gameObject);
     }
 }

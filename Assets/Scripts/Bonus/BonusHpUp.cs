@@ -3,12 +3,11 @@
 // Бонус добавления жизней игроку
 public class BonusHpUp : Bonus
 {
-    [SerializeField]
-    private int hpAdd;
+    [SerializeField] private int hpAdd;
 
     protected override void GiveBonus()
     {
-        unit.GetComponentInChildren<Units>().HealthPoints += hpAdd;
+        unit.GetComponentInChildren<Character>().HealthPoints += hpAdd;
         Destroy(gameObject);
     }
 }

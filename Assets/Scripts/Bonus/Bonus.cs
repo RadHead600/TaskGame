@@ -7,8 +7,8 @@ public abstract class Bonus : MonoBehaviour
     // При столкновении с бонусом вызывается метод, который отвечает за логику бонуса и переопредлеяется в наследниках
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        unit = collision.GetComponentInChildren<Units>();
-        if(unit != null)
+        unit = collision.GetComponentInChildren<Character>();
+        if (unit != null)
             GiveBonus();
     }
     

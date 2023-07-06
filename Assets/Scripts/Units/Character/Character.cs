@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class Character : Units
     [SerializeField] private GameObject bulletsText;
     [SerializeField] private ParticleSystem bloodParticles;
 
+    [SerializeField] private Texture2D aimCursorTexture;
+    [SerializeField] private Texture2D reloadCursorTexture;
     [SerializeField] private GameObject hand;
     [SerializeField] private Transform body;
     [SerializeField] private GameObject[] legs;
@@ -26,12 +29,15 @@ public class Character : Units
         Time.timeScale = 1;
         rigidBody = GetComponent<Rigidbody2D>();
         SetWeapon(SaveParameters.weaponsBought[SaveParameters.weaponEquip]);
+        weaponAttack.Reloading += SetReloadCursor;
+        weaponAttack.Reloaded += SetAimCursor;
     }
 
     private void Start()
     {
         HealthPoints = parameters.HealthPoints;
         SaveParameters.numberOfCoinsRaised = 0;
+        SetAimCursor();
     }
 
     private void FixedUpdate()
@@ -59,16 +65,11 @@ public class Character : Units
             StartCoroutine(Shoot());
     }
 
-    // Отвечает за игнорирования горизонтальных платформ, для того, чтобы игрок мог на них вскарабкиваться
-    private void IgnorePlatform()
-    {
-        Physics2D.IgnoreLayerCollision(10, 18, false);
-    }
-
     // Отвечает за поворот оружия в направлении мыши
     public void RotateWeapons()
     {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        // позиция мыши + текущая позиция персонажа
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position; 
         float rotate = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + offset);
     }
@@ -130,7 +131,6 @@ public class Character : Units
         // Выстрел в направлении мыши
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         weaponAttack.Attack(difference);
-
         isLockShootCoroutine = false;
     }
 
@@ -168,5 +168,23 @@ public class Character : Units
             weaponAttack.transform.localPosition = Vector3.zero;
             weaponAttack.transform.localRotation = Quaternion.identity;
         }
+    }
+
+    // Устанавливает курсор прицела
+    private void SetAimCursor()
+    {
+        Cursor.SetCursor(aimCursorTexture, new Vector2(100, 100), CursorMode.Auto);
+    }
+
+    // Устанавливает курсор перезарядки
+    private void SetReloadCursor()
+    {
+        Cursor.SetCursor(reloadCursorTexture, Vector2.zero, CursorMode.Auto);
+    }
+
+    private void OnDestroy()
+    {
+        weaponAttack.Reloading -= SetReloadCursor;
+        weaponAttack.Reloaded -= SetAimCursor;
     }
 }

@@ -11,6 +11,11 @@ public class Weapon : MonoBehaviour
     private float timerRecharge;
     private int amountBulletsInMagazine;
 
+    public delegate void ReloadingDelegate();
+    public event ReloadingDelegate Reloading;
+    public delegate void ReloadedDelegate();
+    public event ReloadedDelegate Reloaded;
+
     public WeaponParameters Parameters => parameters;
     public int AmountBulletsInMagazine => amountBulletsInMagazine;
     public int AmountBulletsInMagazineStandart => parameters.AmountBulletsInMagazine;
@@ -27,6 +32,8 @@ public class Weapon : MonoBehaviour
             timerRecharge -= Time.deltaTime;
         else if (amountBulletsInMagazine == 0)
         {
+            if (Reloaded != null)
+                Reloaded.Invoke();
             amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
         }
     }
@@ -54,6 +61,8 @@ public class Weapon : MonoBehaviour
         amountBulletsInMagazine -= quantity;
         if (amountBulletsInMagazine <= 0)
         {
+            if (Reloading != null)
+                Reloading.Invoke();
             timerRecharge = parameters.RechargeTime;
             return;
         }

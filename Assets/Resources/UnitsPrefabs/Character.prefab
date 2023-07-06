@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 8372326614317386383}
   - component: {fileID: 9172074187884952696}
   - component: {fileID: 421086012789578253}
-  - component: {fileID: 5189779112265061329}
   m_Layer: 10
   m_Name: Character
   m_TagString: Untagged
@@ -139,6 +138,8 @@ MonoBehaviour:
   bulletsText: {fileID: 0}
   bloodParticles: {fileID: 3152807047145232412, guid: 2fa27ff100134814aabea3298cd5327a,
     type: 3}
+  aimCursorTexture: {fileID: 2800000, guid: e25466ccb7432d843bb8e6ea8dd58703, type: 3}
+  reloadCursorTexture: {fileID: 2800000, guid: 54963a7bbf32efd47aac24ceaf16ba69, type: 3}
   hand: {fileID: 1559754614193064}
   body: {fileID: 4954531293351526}
   legs:
@@ -178,25 +179,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.027715117, y: 0.38351488}
-  m_Size: {x: 0.55022186, y: 0.7830119}
+  m_Offset: {x: 0.027715147, y: 0.6397861}
+  m_Size: {x: 0.5502218, y: 1.2955544}
   m_Direction: 0
---- !u!58 &5189779112265061329
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290715225530138}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.895333}
-  serializedVersion: 2
-  m_Radius: 0.36883658
 --- !u!1 &1315759352830414
 GameObject:
   m_ObjectHideFlags: 0
