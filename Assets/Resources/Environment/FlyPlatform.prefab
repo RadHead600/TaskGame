@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6732556067892375391}
-  - component: {fileID: 6732556067892375388}
+  - component: {fileID: 527099799995017005}
   m_Layer: 8
   m_Name: FlyPlatform
   m_TagString: Untagged
@@ -119,7 +119,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &6732556067892375388
+--- !u!61 &527099799995017005
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,9 +130,9 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017052531, y: 0.041600943}
+  m_Offset: {x: 0.035331607, y: 0.08425212}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -143,7 +143,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.034519, y: 0.38238478}
+  m_Size: {x: 2.0164611, y: 0.27706242}
   m_EdgeRadius: 0
 --- !u!1 &6732556068155843966
 GameObject:

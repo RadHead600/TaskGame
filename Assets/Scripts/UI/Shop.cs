@@ -46,6 +46,7 @@ public class Shop : MonoBehaviour
             int saveI = i;
             ShopWeaponButton button = Instantiate(weaponButton);
             button.transform.SetParent(weaponsPanel.transform);
+            button.transform.position = new Vector3(button.transform.position.x, button.transform.position.y, 0);
             button.transform.localScale = Vector3.one;
             button.Button.onClick.AddListener(() => Equip(saveI));
             button.WeaponImage.sprite = weapons[i].Parameters.WeaponSprite;

@@ -9,7 +9,6 @@ public class Character : Units
     [SerializeField] private CharacterParameters parameters;
 
     [SerializeField] private GameObject HPText;
-    [SerializeField] private GameObject armorText;
     [SerializeField] private GameObject bulletsText;
     [SerializeField] private ParticleSystem bloodParticles;
 
@@ -54,13 +53,6 @@ public class Character : Units
         Run();
         if (Input.GetButtonDown("Jump") && IsGrounded())
             Jump();
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Physics2D.IgnoreLayerCollision(10, 18, true);
-            Invoke("IgnorePlatform", 0.5f);
-        }
-
         if (Input.GetMouseButton(0) && !isLockShootCoroutine)
             StartCoroutine(Shoot());
     }
@@ -100,20 +92,29 @@ public class Character : Units
     // Отвечает за бег
     private void Run()
     {
-        float horizontal = Input.GetAxis("Horizontal") * -1;
-        horizontal *= -1;
-
+        float horizontal = Input.GetAxisRaw("Horizontal");
         gameObject.GetComponentInChildren<Animation>().IsRun = horizontal != 0;
-        Vector2 movement = new Vector3(horizontal * parameters.Speed * Time.fixedDeltaTime, 0.0f);
         legs[0].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && offset > 0);
         legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && offset > 0);
-        rigidBody.AddForce(movement); // Создает толчок в заданное направление
+
+        Vector2 movement = new Vector3(horizontal * Time.deltaTime, 0, 0);
+        if (movement.x == 0) // отключение скольжения
+        {
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            return;
+        }
+        if (rigidBody.velocity.x > -parameters.Speed && rigidBody.velocity.x < parameters.Speed)
+        {
+            rigidBody.AddForce(movement.normalized, ForceMode2D.Impulse); // Создает толчок в заданное направление с расчитанной силой
+            return;
+        }
+        rigidBody.velocity = new Vector2(parameters.Speed * horizontal, rigidBody.velocity.y); // ограничение для скорости
     }
 
     // Отвечает за прыжок
     public void Jump()
     {
-        rigidBody.AddForce(transform.up * parameters.Jump, ForceMode2D.Impulse); // Создает толчок при нажатии кнопки прыжка
+        rigidBody.AddForce(transform.up.normalized * parameters.Jump, ForceMode2D.Impulse); // Создает толчок при нажатии кнопки прыжка
     }
 
     // Возвращает провку на существование пола под игроком
@@ -139,8 +140,7 @@ public class Character : Units
     {
         // Отвечает за отталкивание в при попадании
         rigidBody.velocity = Vector3.zero;
-        rigidBody.AddForce(transform.up * 10.0F, ForceMode2D.Impulse);
-        rigidBody.AddForce(transform.right * 4.0F, ForceMode2D.Impulse);
+        rigidBody.AddForce(transform.up * (parameters.Jump / 3), ForceMode2D.Impulse);
         
         // Отвечает за создания партикла крови
         ParticleSystem particle = Instantiate(bloodParticles, transform.position, transform.rotation);
