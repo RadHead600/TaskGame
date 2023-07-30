@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyAnimator : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     public CharState State
     {
-        get { return (CharState)animator.GetInteger("State"); }
-        set { animator.SetInteger("State", (int)value); }
+        get { return (CharState)_animator.GetInteger("State"); }
+        set { _animator.SetInteger("State", (int)value); }
     }
 
     private void Update()

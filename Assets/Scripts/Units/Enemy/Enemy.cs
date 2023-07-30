@@ -12,11 +12,9 @@ public abstract class Enemy : Units
 
     public override int ReceiveDamage(int damage)
     {
-        // Отвечает за отталкивание в при попадании
         rigidBody.velocity = Vector3.zero;
         rigidBody.AddForce(transform.up * 2.0F, ForceMode2D.Impulse);
 
-        // Отвечает за создания партикла крови
         ParticleSystem particle = Instantiate(bloodParticles, transform.position, transform.rotation);
         particle.Play();
         Destroy(particle.gameObject, particle.startLifetime);
@@ -32,7 +30,7 @@ public abstract class Enemy : Units
     public override void Die()
     {
         SaveParameters.numberKilled[SaveParameters.levelActive] += 1;
-        Instantiate(dropParameters.Coin, transform.position + new Vector3(0, 1, 0), dropParameters.Coin.transform.rotation); // создает монету на месте смерти
+        Instantiate(dropParameters.Coin, transform.position + new Vector3(0, 1, 0), dropParameters.Coin.transform.rotation);
         Destroy(gameObject);
     }
 }

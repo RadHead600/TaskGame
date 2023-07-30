@@ -7,18 +7,18 @@ public class EnemyShoot : Enemy
     [SerializeField] private Transform hand;
     [SerializeField] private Transform body;
 
-    private int offset;
-    private Vector3 difference;
-    private Weapon weapon;
+    private int _offset;
+    private Vector3 _difference;
+    private Weapon _weapon;
 
     public void Start()
     {
         if (player == null)
             player = FindObjectOfType<Character>().gameObject;
         HealthPoints = Parameters.HealthPoints;
-        weapon = Instantiate(Parameters.Weapon);
-        weapon.transform.SetParent(hand);
-        weapon.transform.localPosition = Vector3.zero;
+        _weapon = Instantiate(Parameters.Weapon);
+        _weapon.transform.SetParent(hand);
+        _weapon.transform.localPosition = Vector3.zero;
         StartCoroutine(Attack());
     }
 
@@ -28,43 +28,40 @@ public class EnemyShoot : Enemy
         RotateBody();
     }
 
-    // Поворачивает оружие в сторону направления врага
     private void RotateWeapons()
     {
-        difference = player.transform.position - transform.position;
-        float rotate = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + offset);
+        _difference = player.transform.position - transform.position;
+        float rotate = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
+        hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + _offset);
     }
 
-    // Поворачивается тело в сторону направления врага
     private void RotateBody()
     {
         Vector3 pos = body.transform.localScale;
         body.transform.localScale = new Vector3(
-            (difference.x < 0 ? Math.Abs(pos.x) * -1 : Math.Abs(pos.x)) * (transform.localScale.x > 0 ? -1 : 1),
+            (_difference.x < 0 ? Math.Abs(pos.x) * -1 : Math.Abs(pos.x)) * (transform.localScale.x > 0 ? -1 : 1),
             pos.y,
             pos.z
             );
 
         if (pos.x > 0)
         {
-            offset = -180;
+            _offset = -180;
             if (transform.localScale.x < 0)
-                offset = 0;
+                _offset = 0;
             return;
         }
-        offset = 0;
+        _offset = 0;
         if (transform.localScale.x < 0)
-            offset = -180;
+            _offset = -180;
     }
 
-    // Стрельба с задержкой между выстрелом
     private IEnumerator Attack()
     {
-        yield return new WaitForSeconds(weapon.Parameters.BulletDelay);
+        yield return new WaitForSeconds(_weapon.Parameters.BulletDelay);
 
-        weapon.isEnemy = true;
-        weapon.Attack(difference);
+        _weapon.isEnemy = true;
+        _weapon.Attack(_difference);
 
         StartCoroutine(Attack());
     }

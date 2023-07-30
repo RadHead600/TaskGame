@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//  ласс отвечающий за панель оружи€ в окне магазина
 public class ShopWeaponButton : MonoBehaviour
 { 
     [SerializeField] private Button button;

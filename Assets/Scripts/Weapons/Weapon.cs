@@ -8,8 +8,8 @@ public class Weapon : MonoBehaviour
 
     [NonSerialized] public bool isEnemy = false;
     
-    private float timerRecharge;
-    private int amountBulletsInMagazine;
+    private float _timerRecharge;
+    private int _amountBulletsInMagazine;
 
     public delegate void ReloadingDelegate();
     public event ReloadingDelegate Reloading;
@@ -17,36 +17,35 @@ public class Weapon : MonoBehaviour
     public event ReloadedDelegate Reloaded;
 
     public WeaponParameters Parameters => parameters;
-    public int AmountBulletsInMagazine => amountBulletsInMagazine;
+    public int AmountBulletsInMagazine => _amountBulletsInMagazine;
     public int AmountBulletsInMagazineStandart => parameters.AmountBulletsInMagazine;
 
     private void Start()
     {
-        timerRecharge = parameters.RechargeTime;
-        amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+        _timerRecharge = parameters.RechargeTime;
+        _amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
     }
 
     private void Update()
     {
-        if(timerRecharge > 0)
-            timerRecharge -= Time.deltaTime;
-        else if (amountBulletsInMagazine == 0)
+        if(_timerRecharge > 0)
+            _timerRecharge -= Time.deltaTime;
+        else if (_amountBulletsInMagazine == 0)
         {
             if (Reloaded != null)
                 Reloaded.Invoke();
-            amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+            _amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
         }
     }
 
-    // Функция стрельбы оружия
     public void Attack(Vector3 difference)
     {
-        if (timerRecharge > 0 || posAttack == null)
+        if (_timerRecharge > 0 || posAttack == null)
             return;
 
-        Bullet newBullet = Instantiate(parameters.Bullet, posAttack.transform.position, posAttack.transform.rotation); // Создание пули на заданной точки у оружия
+        Bullet newBullet = Instantiate(parameters.Bullet, posAttack.transform.position, posAttack.transform.rotation);
         if (isEnemy)
-            newBullet.gameObject.layer = LayerMask.NameToLayer("BulletEnemy"); // если стреляет враг, то установить слой пули врага (игнорирование слоев настроено в Build Settings)
+            newBullet.gameObject.layer = LayerMask.NameToLayer("BulletEnemy");
 
         newBullet.Speed = parameters.BulletSpeed;
         newBullet.Damage = parameters.BulletDamage;
@@ -55,15 +54,14 @@ public class Weapon : MonoBehaviour
         TakeAwayBullet(1);
     }
 
-    // Отнять пулю из магазина, в случае, если магазин пуст, то начать перезарядку
     public void TakeAwayBullet(int quantity)
     {
-        amountBulletsInMagazine -= quantity;
-        if (amountBulletsInMagazine <= 0)
+        _amountBulletsInMagazine -= quantity;
+        if (_amountBulletsInMagazine <= 0)
         {
             if (Reloading != null)
                 Reloading.Invoke();
-            timerRecharge = parameters.RechargeTime;
+            _timerRecharge = parameters.RechargeTime;
             return;
         }
     }

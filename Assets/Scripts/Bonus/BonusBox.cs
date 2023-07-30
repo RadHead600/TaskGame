@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-// Бонусный ящик
 public class BonusBox : Units
 {
     [SerializeField] private GameObject[] bonuses;
@@ -17,7 +16,6 @@ public class BonusBox : Units
             DropBonus();
     }
 
-    // Выпадение случайного бонуса из заданных в инспекторе
     public void DropBonus()
     {
         GameObject dropBonus = Instantiate(bonuses[Random.Range(0, bonuses.Length)].gameObject, transform.position, transform.rotation) as GameObject;

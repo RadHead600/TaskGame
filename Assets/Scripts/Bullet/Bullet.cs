@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-// Пуля
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private LayerMask blocks;
@@ -11,18 +10,17 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, 4); // Уничтожение пули при "жизни" в 4 секунды
+        Destroy(gameObject, 4);
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + Direction, Speed * Time.deltaTime); // полет в заданном направлении
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + Direction, Speed * Time.deltaTime);
     }
 
     protected void OnTriggerEnter2D(Collider2D collider)
     {
         Units unit = collider.GetComponentInChildren<Units>();
-        // Нанесение урона в случае столкновения с Unit'ом
         if (unit != null)
         {
             unit.ReceiveDamage(Damage);
@@ -30,7 +28,6 @@ public class Bullet : MonoBehaviour
         }
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, blocks);
-        // Уничтожение пули при столкновении с заданными слоями
         if (colliders.Length > 0.8F)
         {
             Destroy(gameObject);

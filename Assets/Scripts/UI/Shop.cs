@@ -26,7 +26,6 @@ public class Shop : MonoBehaviour
         Equip(SaveParameters.weaponEquip);
     }
 
-    // При старте игры установить все значения на стандартные
     private void SetStaticParameters()
     {
         int levelCount = SceneManager.sceneCountInBuildSettings;
@@ -38,7 +37,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // Добавляет панель с оружием в панель в окне
     private void CreateWeaponPanels()
     {
         for (int i = 0; i < weapons.Count; i++)
@@ -55,7 +53,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // Функция экипирования оружия на игрока
     public void Equip(int weaponNum)
     {
         if (SaveParameters.weaponsBought[weaponNum] != null)
@@ -73,7 +70,6 @@ public class Shop : MonoBehaviour
         BuyWeapon(weaponNum);
     }
 
-    // Функция разблокирования открытого оружия в магазине
     private void UnlockWeapons()
     {
         int i = 0;
@@ -93,14 +89,12 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // разблокирует заданное оружие
     private void UnlockWeapon(int buttonNum)
     {
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[buttonNum].WeaponImage.material = null;
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[buttonNum].CostText.alpha = 0;
     }
 
-    // Функция покупки оружия
     private void BuyWeapon(int weaponNum)
     {
         if (SaveParameters.money < weapons[weaponNum].Parameters.Cost)
@@ -108,7 +102,7 @@ public class Shop : MonoBehaviour
 
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].WeaponImage.material = null;
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].CostText.alpha = 0;
-        SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum]; // добавления купленного оружия в заранее созданный пулл объектов
+        SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum];
         SaveParameters.money -= weapons[weaponNum].Parameters.Cost;
         amountMoney.text = SaveParameters.money.ToString();
     }

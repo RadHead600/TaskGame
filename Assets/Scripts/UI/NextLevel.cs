@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour
 {
-    // Функция старта следующего уровня
     public void OpenNextLevel()
     {
         SaveParameters.levelActive++;
